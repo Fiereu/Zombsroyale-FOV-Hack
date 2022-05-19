@@ -1,7 +1,7 @@
 # Zombsroyale FOV Hack
 "Simple" Zombsroyale FOV Hack.
 
-This is the result of me trying to understand wasm and wasm game hacking.
+This is the result of me trying to understand wasm and wasm game hacking. If they update their game the Offsets probably wont be correct anymore so until then hf using it.
 
 ## How to use
 - Download the repo
