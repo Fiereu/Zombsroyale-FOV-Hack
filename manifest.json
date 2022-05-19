@@ -1,0 +1,35 @@
+{
+    "name": "Test Plugin",
+    "description": "Just a test plugin",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup/popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://zombsroyale.io/*"
+            ],
+            "js": [
+                "js/content.js"
+            ],
+            "all_frames": true,
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "matches": [
+                "*://zombsroyale.io/*"
+            ],
+            "resources": [
+                "js/lib/stacktrace.js", 
+                "js/lib/jquery.js",
+                "js/lib/wail.js", 
+                "js/Brecher.js",
+                "js/payload.js"
+            ]
+        }
+    ]
+}
