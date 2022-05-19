@@ -236,7 +236,7 @@ instrumentBinary = function (binary) {
             const decoder = new TextDecoder();
 
             if (typeof memoryInstancePath !== "undefined") {
-                colorError("Received multiple memory entries. This is unsupported by Cetus!");
+                console.log("Received multiple memory entries. This is unsupported by Cetus!");
             }
 
             memoryInstancePath = {};
@@ -254,7 +254,7 @@ instrumentBinary = function (binary) {
             const decoder = new TextDecoder();
 
             if (typeof memoryInstancePath !== "undefined") {
-                colorError("Received multiple memory entries. This is unsupported by Cetus!");
+                console.log("Received multiple memory entries. This is unsupported by Cetus!");
             }
 
             memoryInstancePath = {};
