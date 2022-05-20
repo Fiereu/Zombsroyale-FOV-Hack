@@ -39,7 +39,8 @@ const StoreF32Callback = function (a1, a2) {
 }
 
 const SetPlayerPosHook = function (stacktop, a1, a2) {
-    console.log(`Updated Player pos`);
+    console.log(`Updated Player pos StackTop: ${stacktop} Args: ${a1}, ${a2} from ${Brecher.GetCaller()}`)
+    debugger;
 }
 
 importHook = function (importObject) {
@@ -69,7 +70,7 @@ instrumentBinary = function (binary) {
     })
     const SetPlayerPosHook_TypeEntry = wail.addTypeEntry({
         form: "func",
-        params: ["i32", "f32"],
+        params: ["i32", "i32", "i32"],
     })
 
     // imports
@@ -189,10 +190,10 @@ instrumentBinary = function (binary) {
     const SetPlayerPos = wail.getFunctionIndex(13268);
     const CALL_Parser = function (org_opcode) {
         const reader = new BufferReader(org_opcode);
-
+        
         const opcode = reader.readUint8();
         const callTarget = reader.readVarUint32();
-
+        
         if (callTarget == SetPlayerPos.i32()) {
             const SaveArgumentsI32 = [
                 OP_SET_GLOBAL, TempStoreValue_i32.varUint32(),
@@ -212,18 +213,16 @@ instrumentBinary = function (binary) {
             reader.copyBuffer(callOpcode);
             reader.copyBuffer(callDest);
             reader.copyBuffer(RestoreArgumentsI32);
-            reader.copyBuffer(org_opcode);
-
-            return reader.write();
         }
 
-        return org_opcode;
+        reader.copyBuffer(org_opcode);
+        return reader.write();
     }
 
     // using custome parsers
     wail.addInstructionParser(OP_I32_STORE, STORE_I32_Parser);
     wail.addInstructionParser(OP_F32_STORE, STORE_F32_Parser);
-    // wail.addInstructionParser(OP_CALL, CALL_Parser);
+    wail.addInstructionParser(OP_CALL, CALL_Parser);
 
 
     // stolen from cetus
